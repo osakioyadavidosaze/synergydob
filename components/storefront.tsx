@@ -21,7 +21,10 @@ import { formatNaira } from "@/lib/currency";
 import { CATEGORIES, type Product } from "@/lib/products";
 import { getSupabase } from "@/lib/supabase";
 
-const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Mama's Pantry";
+const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Synergy Foods";
+const storeWhatsapp = (
+  process.env.NEXT_PUBLIC_STORE_WHATSAPP || "2348027098029"
+).replace(/\D/g, "");
 const filters = ["All", ...CATEGORIES] as const;
 type Cart = Record<string, number>;
 
@@ -134,10 +137,6 @@ export default function Storefront() {
 
   function sendOrder() {
     setOrderError("");
-    const whatsapp = (process.env.NEXT_PUBLIC_STORE_WHATSAPP || "").replace(
-      /\D/g,
-      "",
-    );
     if (!cartItems.length) {
       setOrderError("Add at least one available item to your order.");
       return;
@@ -146,11 +145,6 @@ export default function Storefront() {
       setOrderError("Please enter your delivery address and phone number.");
       return;
     }
-    if (!whatsapp) {
-      setOrderError("The store WhatsApp number hasn't been set up yet.");
-      return;
-    }
-
     const lines = cartItems.map((product) => {
       const quantity = cart[product.id];
       return `• ${product.name} (${quantity} × ${product.unit}) — ${formatNaira(
@@ -167,7 +161,7 @@ export default function Storefront() {
       `Phone: ${phone.trim()}`,
     ].join("\n");
     window.open(
-      `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`,
+      `https://wa.me/${storeWhatsapp}?text=${encodeURIComponent(message)}`,
       "_blank",
       "noopener,noreferrer",
     );
@@ -448,11 +442,27 @@ export default function Storefront() {
         </div>
       </section>
 
-      <footer className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-5 py-7 text-xs font-medium text-muted sm:flex-row sm:items-center sm:px-8">
+      <footer className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-5 py-7 text-xs font-medium text-muted sm:flex-row sm:items-center sm:px-8">
         <p>© {new Date().getFullYear()} {storeName}. Made with love for your kitchen.</p>
-        <a href="/admin" className="rounded px-2 py-1 hover:text-leaf">
-          Store manager
-        </a>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <a
+            href="tel:+2348027098029"
+            className="font-bold text-ink hover:text-leaf"
+          >
+            Call us: 08027098029
+          </a>
+          <a
+            href={`https://wa.me/${storeWhatsapp}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-leaf hover:text-ink"
+          >
+            WhatsApp us
+          </a>
+          <a href="/admin" className="rounded px-2 py-1 hover:text-leaf">
+            Store manager
+          </a>
+        </div>
       </footer>
 
       {cartOpen && (

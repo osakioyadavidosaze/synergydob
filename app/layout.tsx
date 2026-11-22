@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Mama's Pantry";
+const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Synergy Foods";
 
 export const metadata: Metadata = {
   title: `${storeName} | Good food starts here`,

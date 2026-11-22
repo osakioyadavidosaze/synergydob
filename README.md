@@ -4,9 +4,11 @@ A mobile-first Next.js storefront and inventory dashboard powered by Supabase.
 
 ## Get started
 
-1. Copy `.env.example` to `.env.local` and fill in the Supabase project URL, anon
-   key, store name and WhatsApp number. Use the international country-code
-   format for `NEXT_PUBLIC_STORE_WHATSAPP` (for example, `2348012345678`).
+1. Copy `.env.example` to `.env.local` and fill in the Supabase project URL,
+   either `NEXT_PUBLIC_SUPABASE_ANON_KEY` or
+   `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, the store name and WhatsApp number.
+   Use the international country-code format for `NEXT_PUBLIC_STORE_WHATSAPP`
+   (for example, `2348012345678`).
 2. In your Supabase project's SQL Editor, run
    `supabase/migrations/001_store_schema.sql`.
 3. Create an admin user in Supabase Authentication. In that user's **app

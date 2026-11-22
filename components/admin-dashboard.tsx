@@ -40,6 +40,8 @@ const emptyForm: ProductForm = {
   image: null,
 };
 
+const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "Synergy Foods";
+
 async function compressImage(file: File): Promise<Blob> {
   const imageUrl = URL.createObjectURL(file);
   try {
@@ -442,7 +444,7 @@ export default function AdminDashboard() {
             </a>
             <div className="min-w-0">
               <h1 className="truncate text-lg font-black tracking-tight text-ink sm:text-xl">
-                Your foodstuff
+                {storeName}
               </h1>
               <p className="truncate text-xs text-muted">{userEmail}</p>
             </div>
